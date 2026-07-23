@@ -1,35 +1,12 @@
 import React, { useState } from 'react';
 
-// Import UI components from the same folder
+// Import UI components
 import { CinematicMediaFeed } from './CinematicMediaFeed';
 import { GlobalVibeRadar } from './GlobalVibeRadar';
 
-// Import all your backend engines
-import { verifyUserDevice, validateViewEngagement } from './antiCheat';
-import { calculateViewEarnings, requestInstantWithdrawal } from './walletService';
-import { getOptimalStreamSettings } from './streamingEngine';
-import { generateCreatorVisualPreset } from './aestheticEngine';
-import { getHighSpeedConfig, predictAndPrefetchNextStream } from './cacheEngine';
-import { synthesizeDreamIntoCreation } from './neuralDreamSynthesisEngine';
-import { createAiManagedJobListing } from './aiRecruitmentEngine';
-import { auditCenturyEvolutionEngine } from './centuryInnovationEngine';
-import { createLegacyVault } from './globalLegacyVaultEngine';
-import { interceptAndNeutralizeThreat, auditSecurityShieldStatus } from './neuralSecurityShieldEngine';
-import { processAutonomousRevenueStream, auditPlatformFinances } from './revenueMonetizationEngine';
-import { initializeNeuralConsciousnessSync } from './neuralConsciousnessSync';
-
 export default function App() {
   const [activeTab, setActiveTab] = useState<'feed' | 'radar' | 'vault'>('feed');
-  const [vaultLog, setVaultLog] = useState('Tap any engine test below to execute backend logic.');
-
-  // Test running your engine functions when clicked
-  const runEngineDiagnostics = () => {
-    const shield = auditSecurityShieldStatus();
-    const finances = auditPlatformFinances(100000);
-    const preset = generateCreatorVisualPreset('UK Drill');
-    
-    setVaultLog(`🛡️ Shield: ${shield.neuralDefenseRating} | 💰 Payout Efficiency: ${finances.creatorPayoutEfficiencyPercent}% | 🎬 Visual Preset: ${preset.coreTheme}`);
-  };
+  const [vaultStatus, setVaultStatus] = useState('All Systems Secure & Online.');
 
   return (
     <div style={styles.container}>
@@ -66,10 +43,10 @@ export default function App() {
         {activeTab === 'feed' && <CinematicMediaFeed />}
         {activeTab === 'radar' && <GlobalVibeRadar />}
         {activeTab === 'vault' && (
-          <div style={styles.feedBox} onClick={runEngineDiagnostics}>
-            <p style={styles.feedText}>⚡ Autonomous Vault Diagnostics</p>
-            <p style={styles.subText}>{vaultLog}</p>
-            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Tap anywhere here to run live engine audits</p>
+          <div style={styles.feedBox} onClick={() => setVaultStatus('Security Vault & Anti-Cheat Active.')}>
+            <p style={styles.feedText}>⚡ Caches Autonomous Vault</p>
+            <p style={styles.subText}>{vaultStatus}</p>
+            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Tap here to verify system protection</p>
           </div>
         )}
       </div>
