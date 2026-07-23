@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 
-// Import your existing anti-cheat file to make it active
-import { verifyUserDevice, validateViewEngagement } from './antiCheat';
+// Import correctly from inside the security folder
+import { verifyUserDevice, validateViewEngagement } from './security/antiCheat';
+import { calculateViewEarnings, requestInstantWithdrawal } from './security/walletService';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'feed' | 'radar' | 'vault'>('feed');
-  const [securityStatus, setSecurityStatus] = useState('Tap here to run Anti-Cheat check');
+  const [engineStatus, setEngineStatus] = useState('Tap below to execute security & wallet engines.');
 
-  // This function activates your anti-cheat file when clicked
-  const runAntiCheatCheck = () => {
-    const isDeviceSafe = verifyUserDevice('device_ytee_001', ['device_other_999']);
-    const isEngagementValid = validateViewEngagement({ viewDurationSeconds: 45, isBotPattern: false });
+  const runSecurityEngines = () => {
+    const deviceCheck = verifyUserDevice('device_ytee_001', []);
+    const earnings = calculateViewEarnings(100000);
 
-    if (isDeviceSafe && isEngagementValid) {
-      setSecurityStatus('✅ Anti-Cheat Active: Device Verified & Legitimate Streamer View Confirmed.');
-    } else {
-      setSecurityStatus('⚠️ Anti-Cheat Active: Anomaly Detected.');
-    }
+    setEngineStatus(
+      `🔒 Anti-Cheat Device Check: ${deviceCheck ? 'PASSED' : 'BLOCKED'} | ` +
+      `💰 Calculated Payout (100k Views): $${earnings}`
+    );
   };
 
   return (
@@ -53,23 +52,23 @@ export default function App() {
       <div style={styles.contentArea}>
         {activeTab === 'feed' && (
           <div style={styles.feedBox}>
-            <p style={styles.feedText}>🎬 Caches Cinema Feed Active</p>
-            <p style={styles.subText}>Streaming UK Drill visuals, high-end private jet sessions, and global culture.</p>
+            <p style={styles.feedText}>🎬 Keep the Blade on the Side (Official Visualizer)</p>
+            <p style={styles.subText}>Artist: Ytee • 142K views • Zero-Fee Stream</p>
           </div>
         )}
 
         {activeTab === 'radar' && (
           <div style={styles.feedBox}>
             <p style={styles.feedText}>🌍 Global Vibe Radar Active</p>
-            <p style={styles.subText}>London, Lagos, and Tokyo studio nodes synchronized.</p>
+            <p style={styles.subText}>London UK Drill & Lagos Afrobeats studio nodes synchronized.</p>
           </div>
         )}
 
         {activeTab === 'vault' && (
-          <div style={styles.feedBox} onClick={runAntiCheatCheck}>
-            <p style={styles.feedText}>⚡ Anti-Cheat & Security Engine</p>
-            <p style={styles.subText}>{securityStatus}</p>
-            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Tap here to activate and test your file live</p>
+          <div style={styles.feedBox} onClick={runSecurityEngines}>
+            <p style={styles.feedText}>⚡ Security & Wallet Engine Node</p>
+            <p style={styles.subText}>{engineStatus}</p>
+            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Tap here to run code from the security folder</p>
           </div>
         )}
       </div>
