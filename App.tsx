@@ -1,32 +1,24 @@
 import React, { useState } from 'react';
 
-// Import correctly from inside the security folder
-import { verifyUserDevice, validateViewEngagement } from './security/antiCheat';
-import { calculateViewEarnings, requestInstantWithdrawal } from './security/walletService';
+// Import from the exact nested security path
+import { verifyUserDevice } from './security/antiCheat';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'feed' | 'radar' | 'vault'>('feed');
-  const [engineStatus, setEngineStatus] = useState('Tap below to execute security & wallet engines.');
+  const [status, setStatus] = useState('Tap below to test the security engine.');
 
-  const runSecurityEngines = () => {
-    const deviceCheck = verifyUserDevice('device_ytee_001', []);
-    const earnings = calculateViewEarnings(100000);
-
-    setEngineStatus(
-      `🔒 Anti-Cheat Device Check: ${deviceCheck ? 'PASSED' : 'BLOCKED'} | ` +
-      `💰 Calculated Payout (100k Views): $${earnings}`
-    );
+  const runSecurityTest = () => {
+    const check = verifyUserDevice('device_ytee_001', []);
+    setStatus(check ? '✅ Security Check Passed: Device Secure' : '⚠️ Device Restricted');
   };
 
   return (
     <div style={styles.container}>
-      {/* Header */}
       <div style={styles.header}>
         <h1 style={styles.logo}>CACHES <span style={styles.accent}>CINEMA</span></h1>
         <p style={styles.tagline}>Elite Visual Culture & Instant-Earn Engine</p>
       </div>
 
-      {/* Navigation Tabs */}
       <div style={styles.tabContainer}>
         <button 
           onClick={() => setActiveTab('feed')} 
@@ -48,7 +40,6 @@ export default function App() {
         </button>
       </div>
 
-      {/* Dynamic Content Area */}
       <div style={styles.contentArea}>
         {activeTab === 'feed' && (
           <div style={styles.feedBox}>
@@ -65,9 +56,9 @@ export default function App() {
         )}
 
         {activeTab === 'vault' && (
-          <div style={styles.feedBox} onClick={runSecurityEngines}>
-            <p style={styles.feedText}>⚡ Security & Wallet Engine Node</p>
-            <p style={styles.subText}>{engineStatus}</p>
+          <div style={styles.feedBox} onClick={runSecurityTest}>
+            <p style={styles.feedText}>⚡ Nested Security Folder Active</p>
+            <p style={styles.subText}>{status}</p>
             <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Tap here to run code from the security folder</p>
           </div>
         )}
