@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 
-// Import UI components
-import { CinematicMediaFeed } from './CinematicMediaFeed';
-import { GlobalVibeRadar } from './GlobalVibeRadar';
-
 export default function App() {
   const [activeTab, setActiveTab] = useState<'feed' | 'radar' | 'vault'>('feed');
-  const [vaultStatus, setVaultStatus] = useState('All Systems Secure & Online.');
 
   return (
     <div style={styles.container}>
@@ -40,13 +35,24 @@ export default function App() {
 
       {/* Dynamic Content Area */}
       <div style={styles.contentArea}>
-        {activeTab === 'feed' && <CinematicMediaFeed />}
-        {activeTab === 'radar' && <GlobalVibeRadar />}
+        {activeTab === 'feed' && (
+          <div style={styles.feedBox}>
+            <p style={styles.feedText}>🎬 Caches Cinema Feed Active</p>
+            <p style={styles.subText}>Streaming UK Drill visuals, high-end private jet sessions, and global culture.</p>
+          </div>
+        )}
+
+        {activeTab === 'radar' && (
+          <div style={styles.feedBox}>
+            <p style={styles.feedText}>🌍 Global Vibe Radar Active</p>
+            <p style={styles.subText}>London, Lagos, and Tokyo studio nodes synchronized.</p>
+          </div>
+        )}
+
         {activeTab === 'vault' && (
-          <div style={styles.feedBox} onClick={() => setVaultStatus('Security Vault & Anti-Cheat Active.')}>
-            <p style={styles.feedText}>⚡ Caches Autonomous Vault</p>
-            <p style={styles.subText}>{vaultStatus}</p>
-            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Tap here to verify system protection</p>
+          <div style={styles.feedBox}>
+            <p style={styles.feedText}>⚡ Autonomous Security Vault Online</p>
+            <p style={styles.subText}>Anti-cheat protection, instant payout gateway, and neural encryption active.</p>
           </div>
         )}
       </div>
@@ -107,7 +113,6 @@ const styles = {
     textAlign: 'center' as const,
     backgroundColor: '#16161a',
     marginBottom: '20px',
-    cursor: 'pointer',
   },
   feedText: {
     color: '#007aff',
