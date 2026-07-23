@@ -12,7 +12,6 @@ export default function App() {
   const [activeScreen, setActiveScreen] = useState<'COMMAND_CENTER' | 'MEDIA_FEED' | 'VIBE_RADAR'>('COMMAND_CENTER');
   const [notification, setNotification] = useState<string>('Ecosystem Fully Initialized & Live');
 
-  // Test running your distribution and TV casting live from the app
   const testLiveSystemLaunch = () => {
     const release = scheduleGlobalMusicRelease('Keep the Blade on the Side', 'UK_DRILL');
     const dsp = dispatchToUniversalDsps('Ytee', release.songTitle, ['VEVO_GLOBAL', 'SPOTIFY', 'AUDIOMACK']);
@@ -23,7 +22,6 @@ export default function App() {
 
   return (
     <div style={styles.appContainer}>
-      {/* Top Live Status Bar */}
       <div style={styles.statusBar}>
         <span style={styles.brandTitle}>CACHES <span style={styles.liveBadge}>● LIVE ECOSYSTEM</span></span>
         <span style={styles.notificationText}>{notification}</span>
@@ -32,7 +30,6 @@ export default function App() {
         </button>
       </div>
 
-      {/* Screen Navigation Bar */}
       <div style={styles.navBar}>
         <button 
           onClick={() => setActiveScreen('COMMAND_CENTER')}
@@ -54,7 +51,6 @@ export default function App() {
         </button>
       </div>
 
-      {/* Dynamic Screen View */}
       <div style={styles.screenContent}>
         {activeScreen === 'COMMAND_CENTER' && <CachesCommandCenter />}
         {activeScreen === 'MEDIA_FEED' && <CinematicMediaFeed />}
