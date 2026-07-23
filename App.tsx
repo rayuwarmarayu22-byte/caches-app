@@ -1,11 +1,34 @@
 import React, { useState } from 'react';
 
-export default function App() {
-  const [activeTab, setActiveTab] = useState<'feed' | 'earn'>('feed');
-  const [statusText, setStatusText] = useState('Vibe Stream Initializing...');
+// Import UI components from the same folder
+import { CinematicMediaFeed } from './CinematicMediaFeed';
+import { GlobalVibeRadar } from './GlobalVibeRadar';
 
-  const handleStreamClick = () => {
-    setStatusText('Connected! Streaming High-End Culture Feed.');
+// Import all your backend engines
+import { verifyUserDevice, validateViewEngagement } from './antiCheat';
+import { calculateViewEarnings, requestInstantWithdrawal } from './walletService';
+import { getOptimalStreamSettings } from './streamingEngine';
+import { generateCreatorVisualPreset } from './aestheticEngine';
+import { getHighSpeedConfig, predictAndPrefetchNextStream } from './cacheEngine';
+import { synthesizeDreamIntoCreation } from './neuralDreamSynthesisEngine';
+import { createAiManagedJobListing } from './aiRecruitmentEngine';
+import { auditCenturyEvolutionEngine } from './centuryInnovationEngine';
+import { createLegacyVault } from './globalLegacyVaultEngine';
+import { interceptAndNeutralizeThreat, auditSecurityShieldStatus } from './neuralSecurityShieldEngine';
+import { processAutonomousRevenueStream, auditPlatformFinances } from './revenueMonetizationEngine';
+import { initializeNeuralConsciousnessSync } from './neuralConsciousnessSync';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState<'feed' | 'radar' | 'vault'>('feed');
+  const [vaultLog, setVaultLog] = useState('Tap any engine test below to execute backend logic.');
+
+  // Test running your engine functions when clicked
+  const runEngineDiagnostics = () => {
+    const shield = auditSecurityShieldStatus();
+    const finances = auditPlatformFinances(100000);
+    const preset = generateCreatorVisualPreset('UK Drill');
+    
+    setVaultLog(`🛡️ Shield: ${shield.neuralDefenseRating} | 💰 Payout Efficiency: ${finances.creatorPayoutEfficiencyPercent}% | 🎬 Visual Preset: ${preset.coreTheme}`);
   };
 
   return (
@@ -20,30 +43,36 @@ export default function App() {
       <div style={styles.tabContainer}>
         <button 
           onClick={() => setActiveTab('feed')} 
-          style={{ ...styles.tabButton, backgroundColor: activeTab === 'feed' ? '#00FFFF' : '#1A1A1A', color: activeTab === 'feed' ? '#000000' : '#FFFFFF' }}
+          style={{ ...styles.tabButton, backgroundColor: activeTab === 'feed' ? '#007aff' : '#1A1A1A', color: '#FFFFFF' }}
         >
-          Elite Feed
+          Cinema Feed
         </button>
         <button 
-          onClick={() => setActiveTab('earn')} 
-          style={{ ...styles.tabButton, backgroundColor: activeTab === 'earn' ? '#00FFFF' : '#1A1A1A', color: activeTab === 'earn' ? '#000000' : '#FFFFFF' }}
+          onClick={() => setActiveTab('radar')} 
+          style={{ ...styles.tabButton, backgroundColor: activeTab === 'radar' ? '#007aff' : '#1A1A1A', color: '#FFFFFF' }}
         >
-          Instant-Earn
+          Vibe Radar
+        </button>
+        <button 
+          onClick={() => setActiveTab('vault')} 
+          style={{ ...styles.tabButton, backgroundColor: activeTab === 'vault' ? '#007aff' : '#1A1A1A', color: '#FFFFFF' }}
+        >
+          Engines & Vault
         </button>
       </div>
 
-      {/* Main Dynamic Content Box */}
-      {activeTab === 'feed' ? (
-        <div style={styles.feedBox} onClick={handleStreamClick}>
-          <p style={styles.feedText}>{statusText}</p>
-          <p style={styles.subText}>Tap here to launch full visual streams & security shield</p>
-        </div>
-      ) : (
-        <div style={styles.feedBox}>
-          <p style={styles.feedText}>Engine Status: Active</p>
-          <p style={styles.subText}>Low-Data Engagement Tracker & Payout Sync Ready</p>
-        </div>
-      )}
+      {/* Dynamic Content Area */}
+      <div style={styles.contentArea}>
+        {activeTab === 'feed' && <CinematicMediaFeed />}
+        {activeTab === 'radar' && <GlobalVibeRadar />}
+        {activeTab === 'vault' && (
+          <div style={styles.feedBox} onClick={runEngineDiagnostics}>
+            <p style={styles.feedText}>⚡ Autonomous Vault Diagnostics</p>
+            <p style={styles.subText}>{vaultLog}</p>
+            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Tap anywhere here to run live engine audits</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -53,11 +82,11 @@ const styles = {
     display: 'flex',
     flexDirection: 'column' as const,
     minHeight: '100vh',
-    backgroundColor: '#000000',
+    backgroundColor: '#0a0a0c',
     alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'sans-serif',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     padding: '20px',
+    color: '#ffffff',
   },
   header: {
     textAlign: 'center' as const,
@@ -79,35 +108,40 @@ const styles = {
     display: 'flex',
     gap: '10px',
     marginBottom: '20px',
+    flexWrap: 'wrap' as const,
+    justifyContent: 'center',
   },
   tabButton: {
     padding: '10px 20px',
-    border: '1px solid #333333',
-    borderRadius: '8px',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: '20px',
     fontWeight: '600',
     cursor: 'pointer',
-    fontSize: '14px',
+    fontSize: '13px',
+  },
+  contentArea: {
+    width: '100%',
+    maxWidth: '800px',
   },
   feedBox: {
     padding: '25px',
-    border: '1px solid #333333',
-    borderRadius: '12px',
+    border: '1px solid rgba(255, 255, 255, 0.08)',
+    borderRadius: '16px',
     textAlign: 'center' as const,
-    backgroundColor: '#0A0A0A',
-    maxWidth: '320px',
-    width: '100%',
+    backgroundColor: '#16161a',
+    marginBottom: '20px',
     cursor: 'pointer',
   },
   feedText: {
-    color: '#00FFFF',
+    color: '#007aff',
     fontSize: '16px',
     fontWeight: '600',
-    margin: 0,
+    margin: '0 0 8px 0',
   },
   subText: {
-    color: '#777777',
-    fontSize: '11px',
-    marginTop: '8px',
-    marginBottom: 0,
+    color: '#aaaaaa',
+    fontSize: '12px',
+    margin: 0,
+    lineHeight: 1.4,
   },
 };
