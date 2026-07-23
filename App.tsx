@@ -1,11 +1,33 @@
 import React, { useState } from 'react';
 
+// Import your actual backend engine files
+import { verifyUserDevice, validateViewEngagement } from './antiCheat';
+import { calculateViewEarnings, requestInstantWithdrawal } from './walletService';
+import { generateCreatorVisualPreset } from './aestheticEngine';
+import { auditSecurityShieldStatus } from './neuralSecurityShieldEngine';
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<'feed' | 'radar' | 'vault'>('feed');
+  const [vaultLog, setVaultLog] = useState('Tap below to execute live engine diagnostics.');
   const [likedItems, setLikedItems] = useState<Record<string, boolean>>({});
 
   const toggleLike = (id: string) => {
     setLikedItems(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  // This runs your actual engine functions when you tap the button
+  const runEngineTests = () => {
+    const shield = auditSecurityShieldStatus();
+    const earnings = calculateViewEarnings(150000); // Test calculation for 150k views
+    const preset = generateCreatorVisualPreset('UK Drill');
+    const isDeviceValid = verifyUserDevice('device_xyz_999', ['device_abc_123']);
+
+    setVaultLog(
+      `🛡️ Shield Rating: ${shield.neuralDefenseRating} | ` +
+      `💰 150k Views Payout: $${earnings} | ` +
+      `🎬 Preset: ${preset.genre} (${preset.coreTheme}) | ` +
+      `🔒 Device Security Check: ${isDeviceValid ? 'PASSED (One User, One Account)' : 'BLOCKED'}`
+    );
   };
 
   return (
@@ -96,9 +118,10 @@ export default function App() {
         )}
 
         {activeTab === 'vault' && (
-          <div style={styles.feedBox}>
-            <p style={styles.feedText}>⚡ Autonomous Security Vault Online</p>
-            <p style={styles.subText}>Anti-cheat protection, instant payout gateway, and neural encryption active.</p>
+          <div style={styles.feedBox} onClick={runEngineTests}>
+            <p style={styles.feedText}>⚡ Tap Here to Run Backend Engines</p>
+            <p style={styles.subText}>{vaultLog}</p>
+            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Executing Anti-Cheat, Wallet Payout, & Neural Shield telemetry</p>
           </div>
         )}
       </div>
@@ -255,6 +278,7 @@ const styles = {
     borderRadius: '16px',
     textAlign: 'center' as const,
     backgroundColor: '#16161a',
+    cursor: 'pointer',
   },
   feedText: {
     color: '#007aff',
@@ -266,5 +290,6 @@ const styles = {
     color: '#aaaaaa',
     fontSize: '12px',
     margin: 0,
+    lineHeight: 1.4,
   },
 };
