@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
 
-// Import your backend engines with exact case matching
-import { verifyUserDevice, validateViewEngagement } from './AntiCheat';
-import { calculateViewEarnings, requestInstantWithdrawal } from './walletService';
-import { generateCreatorVisualPreset } from './aestheticEngine';
-import { auditSecurityShieldStatus } from './neuralSecurityShieldEngine';
+// Import your existing anti-cheat file to make it active
+import { verifyUserDevice, validateViewEngagement } from './antiCheat';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'feed' | 'radar' | 'vault'>('feed');
-  const [vaultLog, setVaultLog] = useState('Tap below to execute live engine diagnostics.');
-  const [likedItems, setLikedItems] = useState<Record<string, boolean>>({});
+  const [securityStatus, setSecurityStatus] = useState('Tap here to run Anti-Cheat check');
 
-  const toggleLike = (id: string) => {
-    setLikedItems(prev => ({ ...prev, [id]: !prev[id] }));
-  };
+  // This function activates your anti-cheat file when clicked
+  const runAntiCheatCheck = () => {
+    const isDeviceSafe = verifyUserDevice('device_ytee_001', ['device_other_999']);
+    const isEngagementValid = validateViewEngagement({ viewDurationSeconds: 45, isBotPattern: false });
 
-  const runEngineTests = () => {
-    const shield = auditSecurityShieldStatus();
-    const earnings = calculateViewEarnings(150000);
-    const preset = generateCreatorVisualPreset('UK Drill');
-    const isDeviceValid = verifyUserDevice('device_xyz_999', ['device_abc_123']);
-
-    setVaultLog(
-      `🛡️ Shield Rating: ${shield.neuralDefenseRating} | ` +
-      `💰 150k Views Payout: $${earnings} | ` +
-      `🎬 Preset: ${preset.genre} (${preset.coreTheme}) | ` +
-      `🔒 Device Security Check: ${isDeviceValid ? 'PASSED (One User, One Account)' : 'BLOCKED'}`
-    );
+    if (isDeviceSafe && isEngagementValid) {
+      setSecurityStatus('✅ Anti-Cheat Active: Device Verified & Legitimate Streamer View Confirmed.');
+    } else {
+      setSecurityStatus('⚠️ Anti-Cheat Active: Anomaly Detected.');
+    }
   };
 
   return (
@@ -62,65 +52,24 @@ export default function App() {
       {/* Dynamic Content Area */}
       <div style={styles.contentArea}>
         {activeTab === 'feed' && (
-          <div style={styles.grid}>
-            <div style={styles.card}>
-              <div style={styles.thumbnailWrapper}>
-                <div style={styles.simulatedVideoPreview}>
-                  <span style={styles.durationBadge}>3:45</span>
-                </div>
-              </div>
-              <div style={styles.cardDetails}>
-                <div>
-                  <h4 style={styles.itemTitle}>Keep the Blade on the Side (Official Visualizer)</h4>
-                  <p style={styles.creatorName}>Ytee</p>
-                  <p style={styles.viewCount}>142K views • Zero-Fee Stream</p>
-                </div>
-                <button onClick={() => toggleLike('item_01')} style={styles.likeButton}>
-                  {likedItems['item_01'] ? '❤️' : '🤍'}
-                </button>
-              </div>
-            </div>
-
-            <div style={styles.card}>
-              <div style={styles.thumbnailWrapper}>
-                <div style={{ ...styles.simulatedVideoPreview, background: 'linear-gradient(135deg, #2e1f1f 0%, #140f0f 100%)' }}>
-                  <span style={styles.durationBadge}>12:20</span>
-                </div>
-              </div>
-              <div style={styles.cardDetails}>
-                <div>
-                  <h4 style={styles.itemTitle}>Private Jet Session & Global Studio Tour</h4>
-                  <p style={styles.creatorName}>Ytee</p>
-                  <p style={styles.viewCount}>89K views • Zero-Fee Stream</p>
-                </div>
-                <button onClick={() => toggleLike('item_02')} style={styles.likeButton}>
-                  {likedItems['item_02'] ? '❤️' : '🤍'}
-                </button>
-              </div>
-            </div>
+          <div style={styles.feedBox}>
+            <p style={styles.feedText}>🎬 Caches Cinema Feed Active</p>
+            <p style={styles.subText}>Streaming UK Drill visuals, high-end private jet sessions, and global culture.</p>
           </div>
         )}
 
         {activeTab === 'radar' && (
-          <div style={styles.radarContainer}>
-            <h3 style={styles.radarTitle}>🌍 GLOBAL VIBE RADAR</h3>
-            <p style={styles.radarSubtitle}>Autonomous telemetry tracking live creative energy worldwide</p>
-            <div style={{ marginTop: '16px' }}>
-              <div style={styles.nodeCard}>
-                <strong>London, UK</strong> — UK Drill Studio Session & Visual Drop (+4.2K active)
-              </div>
-              <div style={{ ...styles.nodeCard, marginTop: '10px' }}>
-                <strong>Lagos, Nigeria</strong> — Afrobeats Live Mastering & Global Stream (+8.9K active)
-              </div>
-            </div>
+          <div style={styles.feedBox}>
+            <p style={styles.feedText}>🌍 Global Vibe Radar Active</p>
+            <p style={styles.subText}>London, Lagos, and Tokyo studio nodes synchronized.</p>
           </div>
         )}
 
         {activeTab === 'vault' && (
-          <div style={styles.feedBox} onClick={runEngineTests}>
-            <p style={styles.feedText}>⚡ Tap Here to Run Backend Engines</p>
-            <p style={styles.subText}>{vaultLog}</p>
-            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Executing Anti-Cheat, Wallet Payout, & Neural Shield telemetry</p>
+          <div style={styles.feedBox} onClick={runAntiCheatCheck}>
+            <p style={styles.feedText}>⚡ Anti-Cheat & Security Engine</p>
+            <p style={styles.subText}>{securityStatus}</p>
+            <p style={{ ...styles.subText, color: '#007aff', marginTop: '12px' }}>Tap here to activate and test your file live</p>
           </div>
         )}
       </div>
@@ -182,94 +131,6 @@ const styles = {
   contentArea: {
     width: '100%',
     maxWidth: '800px',
-  },
-  grid: {
-    display: 'grid' as const,
-    gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-    gap: '20px',
-  },
-  card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    borderRadius: '16px',
-    overflow: 'hidden' as const,
-    border: '1px solid rgba(255, 255, 255, 0.08)',
-  },
-  thumbnailWrapper: {
-    position: 'relative' as const,
-    width: '100%',
-    height: '160px',
-    backgroundColor: '#16161a',
-  },
-  simulatedVideoPreview: {
-    width: '100%',
-    height: '100%',
-    background: 'linear-gradient(135deg, #1f1f2e 0%, #0f0f14 100%)',
-    display: 'flex' as const,
-    alignItems: 'flex-end' as const,
-    justifyContent: 'flex-end' as const,
-    padding: '12px',
-  },
-  durationBadge: {
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    color: '#fff',
-    padding: '4px 8px',
-    borderRadius: '6px',
-    fontSize: '11px',
-    fontWeight: 700,
-  },
-  cardDetails: {
-    padding: '16px',
-    display: 'flex' as const,
-    justifyContent: 'space-between' as const,
-    alignItems: 'flex-start' as const,
-  },
-  itemTitle: {
-    fontSize: '14px',
-    fontWeight: 700,
-    margin: '0 0 4px 0',
-    color: '#f0f0f5',
-  },
-  creatorName: {
-    fontSize: '12px',
-    color: '#007aff',
-    margin: '0 0 2px 0',
-    fontWeight: 600,
-  },
-  viewCount: {
-    fontSize: '11px',
-    color: '#888',
-    margin: 0,
-  },
-  likeButton: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    fontSize: '18px',
-    cursor: 'pointer',
-    padding: '4px',
-  },
-  radarContainer: {
-    backgroundColor: '#16161a',
-    borderRadius: '16px',
-    border: '1px solid rgba(255, 255, 255, 0.08)',
-    padding: '24px',
-  },
-  radarTitle: {
-    fontSize: '16px',
-    fontWeight: 800,
-    margin: '0 0 4px 0',
-  },
-  radarSubtitle: {
-    fontSize: '12px',
-    color: '#888',
-    margin: 0,
-  },
-  nodeCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    borderRadius: '10px',
-    padding: '12px',
-    fontSize: '13px',
-    color: '#ccc',
-    border: '1px solid rgba(255, 255, 255, 0.05)',
   },
   feedBox: {
     padding: '25px',
