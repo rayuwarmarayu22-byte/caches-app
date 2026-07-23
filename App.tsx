@@ -1,59 +1,63 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.logo}>CACHES</Text>
-        <Text style={styles.tagline}>Elite Visual Culture & Instant-Earn Engine</Text>
-      </View>
-      <View style={styles.feedBox}>
-        <Text style={styles.feedText}>Vibe Stream Initializing...</Text>
-        <Text style={styles.subText}>Low-Data Streaming & Security Shield Active</Text>
-      </View>
-    </SafeAreaView>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <h1 style={styles.logo}>CACHES</h1>
+        <p style={styles.tagline}>Elite Visual Culture & Instant-Earn Engine</p>
+      </div>
+      <div style={styles.feedBox}>
+        <p style={styles.feedText}>Vibe Stream Initializing...</p>
+        <p style={styles.subText}>Low-Data Streaming & Security Shield Active</p>
+      </div>
+    </div>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
-    flex: 1,
+    display: 'flex',
+    flexDirection: 'column' as const,
+    minHeight: '100vh',
     backgroundColor: '#000000',
     alignItems: 'center',
     justifyContent: 'center',
+    fontFamily: 'sans-serif',
   },
   header: {
-    alignItems: 'center',
-    marginBottom: 40,
+    textAlign: 'center' as const,
+    marginBottom: '40px',
   },
   logo: {
     color: '#FFFFFF',
-    fontSize: 32,
-    fontWeight: 'bold',
-    letterSpacing: 2,
+    fontSize: '32px',
+    fontWeight: 'bold' as const,
+    letterSpacing: '2px',
+    margin: 0,
   },
   tagline: {
     color: '#A0A0A0',
-    fontSize: 12,
-    marginTop: 5,
+    fontSize: '12px',
+    marginTop: '5px',
   },
   feedBox: {
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#333333',
-    borderRadius: 12,
-    alignItems: 'center',
+    padding: '20px',
+    border: '1px solid #333333',
+    borderRadius: '12px',
+    textAlign: 'center' as const,
     backgroundColor: '#0A0A0A',
   },
   feedText: {
     color: '#00FFFF',
-    fontSize: 16,
+    fontSize: '16px',
     fontWeight: '600',
+    margin: 0,
   },
   subText: {
     color: '#777777',
-    fontSize: 11,
-    marginTop: 8,
+    fontSize: '11px',
+    marginTop: '8px',
+    marginBottom: 0,
   },
-});
+};
