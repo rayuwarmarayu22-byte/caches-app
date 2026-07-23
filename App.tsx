@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 
+// Import your existing components from the repository
+import { CinematicMediaFeed } from './CinematicMediaFeed';
+import { GlobalVibeRadar } from './GlobalVibeRadar';
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<'feed' | 'radar' | 'vault'>('feed');
 
@@ -35,20 +39,8 @@ export default function App() {
 
       {/* Dynamic Content Area */}
       <div style={styles.contentArea}>
-        {activeTab === 'feed' && (
-          <div style={styles.feedBox}>
-            <p style={styles.feedText}>🎬 Caches Cinema Feed Active</p>
-            <p style={styles.subText}>Streaming UK Drill visuals, high-end private jet sessions, and global culture.</p>
-          </div>
-        )}
-
-        {activeTab === 'radar' && (
-          <div style={styles.feedBox}>
-            <p style={styles.feedText}>🌍 Global Vibe Radar Active</p>
-            <p style={styles.subText}>London, Lagos, and Tokyo studio nodes synchronized.</p>
-          </div>
-        )}
-
+        {activeTab === 'feed' && <CinematicMediaFeed />}
+        {activeTab === 'radar' && <GlobalVibeRadar />}
         {activeTab === 'vault' && (
           <div style={styles.feedBox}>
             <p style={styles.feedText}>⚡ Autonomous Security Vault Online</p>
