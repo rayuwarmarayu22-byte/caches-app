@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-// Import your actual backend engine files
-import { verifyUserDevice, validateViewEngagement } from './antiCheat';
+// Import your backend engines with exact case matching
+import { verifyUserDevice, validateViewEngagement } from './AntiCheat';
 import { calculateViewEarnings, requestInstantWithdrawal } from './walletService';
 import { generateCreatorVisualPreset } from './aestheticEngine';
 import { auditSecurityShieldStatus } from './neuralSecurityShieldEngine';
@@ -15,10 +15,9 @@ export default function App() {
     setLikedItems(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  // This runs your actual engine functions when you tap the button
   const runEngineTests = () => {
     const shield = auditSecurityShieldStatus();
-    const earnings = calculateViewEarnings(150000); // Test calculation for 150k views
+    const earnings = calculateViewEarnings(150000);
     const preset = generateCreatorVisualPreset('UK Drill');
     const isDeviceValid = verifyUserDevice('device_xyz_999', ['device_abc_123']);
 
